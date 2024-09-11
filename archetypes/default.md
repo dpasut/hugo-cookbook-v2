@@ -9,6 +9,7 @@ date: {{ .Date }}
 tags: ["tag1", "tag2"] #tags for your recipe
 tagline: "A short tagline for your recipe"
 servings: 4
+servings_text: Servings
 prep_time: 15 #in minutes #can be BLANK
 cook: true # If we are cooking this, leave true, if we are cooling set to false
 cook_increment: Minutes # set to minutes or hours
