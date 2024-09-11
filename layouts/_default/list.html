@@ -5,12 +5,10 @@
     <div class="columns is-multiline">
         {{ $.Scratch.Set "category" .Title }}
         {{ range .Data.Pages }}
-        <div class="column is-one-quarter">
+        <div class="container column is-one-quarter">
             {{ partial "summary.html" . }} {{/* pass in the element to the partial */}}
         </div>
         {{ end }}
     </div>
 </div>
 {{ end }}
-
-

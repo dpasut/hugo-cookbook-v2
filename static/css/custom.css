@@ -10,3 +10,18 @@ li {
 .is-primary {
     background-color: #444 !important;
 }
+
+.no-highlight {
+    color: #4a4a4a;
+    text-align: center;
+    margin-top: 0.7em;
+}
+
+.container {
+    display: flex;
+    align-items: stretch;
+}
+
+.card {
+    height: 100%;
+}
