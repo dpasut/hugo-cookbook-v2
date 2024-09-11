@@ -2,3 +2,7 @@ li {
     padding-bottom: .5em;
     font-size: 20px;
 }
+
+.is-primary {
+    background-color: #444 !important;
+}
