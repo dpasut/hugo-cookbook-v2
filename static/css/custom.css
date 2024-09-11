@@ -17,10 +17,6 @@ li {
     margin-top: 0.7em;
 }
 
-.container {
-    display: flex;
-    align-items: stretch;
-}
 
 .card {
     height: 100%;
@@ -28,4 +24,39 @@ li {
 
 hr {
     margin: 1rem 0;
+}
+
+.printButton {
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Semi-transparent black background */
+    padding: 10px;
+    /* Adds some padding around the icon */
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    /* Adds a soft shadow to soften the edges */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transition */
+
+}
+
+.printButton:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    /* Darker background on hover */
+}
+
+a {
+    /* color: white; */
+    /* Ensures the icon color is visible on dark backgrounds */
+    transition: color 0.3s ease;
+    /* Smooth transition for text color */
+}
+
+a:hover {
+    color: #4a4a4a;
+    /* Slightly lighter color on hover */
 }
