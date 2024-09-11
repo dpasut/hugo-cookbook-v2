@@ -22,11 +22,7 @@
         <p class="has-text-weight-bold is-size-6">Cooling Time</p>
         {{ end }}
         <div></div>
-        {{ if eq .Params.Cook_increment "hours" }}
-        {{ .Params.Cook_time | default "---"}} Hours
-        {{ else }}
-        {{ .Params.Cook_time | default "---"}} Minutes
-        {{ end }}
+        {{ .Params.Cook_time | default "---"}} {{ .Params.Cook_increment | default "Minutes"}}
         <div></div>
         {{ if .Params.Cook_temperature_degrees }}
         {{ if eq .Params.Cook_temperature_unit "F" }}

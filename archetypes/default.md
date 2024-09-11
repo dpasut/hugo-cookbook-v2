@@ -11,7 +11,7 @@ tagline: "A short tagline for your recipe"
 servings: 4
 prep_time: 15 #in minutes #can be BLANK
 cook: true # If we are cooking this, leave true, if we are cooling set to false
-cook_increment: minutes # set to minutes or hours
+cook_increment: Minutes # set to minutes or hours
 cook_time: 8 #in minutes or hours #can be BLANK
 cook_temperature_unit: C # set to C or F
 cook_temperature_degrees: 180 #can be BLANK
