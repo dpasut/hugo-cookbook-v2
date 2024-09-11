@@ -42,7 +42,7 @@ u('#searchButton').handle('click', function (e) { //use handle to automatically 
 })
 
 function executeSearch(searchQuery) {
-  fetch(window.hugoBaseURL + "index.json").then(r => r.json()).then(function (data) {
+  fetch(window.hugoBaseURL + "/index.json").then(r => r.json()).then(function (data) {
     var pages = data;
     var fuse = new Fuse(pages, fuseOptions);
     var result = fuse.search(searchQuery);
