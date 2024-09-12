@@ -2,7 +2,8 @@
     <a href="{{ .Permalink }}">
         <div class="card-image">
             <figure class="image is-4by3">
-                <img style="border-radius: 3%;" src="{{ $.Params.Recipe_image | absURL }}" alt="Placeholder image">
+                <img style="border-radius: 3%; object-fit: contain;" src="{{ $.Params.Recipe_image | absURL }}"
+                    alt="{{ $.Title }}">
             </figure>
         </div>
         <div class="card-content"
