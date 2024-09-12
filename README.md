@@ -17,12 +17,8 @@ Developed with Bulma CSS and UmbrellaJS (as well as fuse.js for search).
 - [x] Tag your recipes, browse by tags.
 - [x] Break your ingredients into subheadings.
 - [x] Print view.
-
-## Planned
-
 - [x] 404 page.
-- [ ] More customizable print options, smaller font size for printing.
-- [ ] Any other layout tweaks/feature requests.
+
 
 ## Install
 
@@ -42,13 +38,11 @@ You can download the latest release, or the the current master as a zip, then ex
 
 ## Copy Site Config
 
-Then you can copy the `config.toml` from `exampleSite` to the root of your hugo directory, and modify that for your instance.
+Then you can copy the `config.toml` from `exampleSite` to the root of your hugo directory, and modify that for your instance. You may need to name it `hugo.toml`, depending on the version of Hugo installed.
 
 ## Setup Default Template
 
-Since hugo-cookbook is a single purpose theme, you need to override your default archetype so that all content created is of `recipe` type.
-
-To override the default template, copy the `default.md` from `themes\archetypes\default.md` to `archetypes` and overwrite the current `default.md` in that directory.
+Copy `default.md` from `themes/cookbook/archetypes/default.md` to `archetypes` and overwrite the current `default.md` in that directory.
 
 This will ensure that any new content you create will be of type `recipe`.
 
@@ -56,12 +50,12 @@ This will ensure that any new content you create will be of type `recipe`.
 
 Simply run `hugo new recipe_name.md` to create your new recipe in the `content` folder.  Modify the markdown file as required for your new recipe.
 
-`hugo serve` to view the site.
+`hugo server --disableFastRender` to view the site.
 
 ## Recipe Views of the Site
 
-![Ramen Recipe](images/tn.png)
+![Recipe Example](images/tn.png)
 
-## Directions View
+## Print Views of the Site
 
-![Direction View](images/tn2.png)
+![Recipe Example](images/tn2.png)
