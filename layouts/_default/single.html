@@ -6,8 +6,8 @@
             <div class="is-flex"
                 style="justify-content: center; border-radius: 3%; background-color: #f0f5f1; position: relative;">
                 <figure class="image">
-                    <img style="border-radius: 3%;" src={{ printf "%s%s" .Site.BaseURL .Params.Recipe_image }}
-                        alt="Placeholder image">
+                    <img style="border-radius: 3%; max-height: 512px;" src={{ printf "%s%s" .Site.BaseURL
+                        .Params.Recipe_image }} alt="Placeholder image">
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="is-rounded">
                     <a href="{{printf " /print/%s/print.html" (.File.BaseFileName | urlize) | urlize | relURL }}"
