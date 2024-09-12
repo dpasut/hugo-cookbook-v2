@@ -1,5 +1,5 @@
 <i class="fas fa-tags"></i>
 {{ $numTags := len $.Params.Tags }}
 {{ range $index, $element := $.Params.Tags }}
-<a>{{$element}}</a>{{ if lt (add $index 1) $numTags }},{{ end }}
+{{$element}}{{ if lt (add $index 1) $numTags }},{{ end }}
 {{ end }}
