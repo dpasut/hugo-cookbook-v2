@@ -1,7 +1,5 @@
-{{ with .Params.tags }}
 <i class="fas fa-tags"></i>
-{{ range . }}
-{{/* {{ $href := print (absURL "tags/") (urlize .) }} */}}
-{{ . }}
-{{ end }}
+{{ $numTags := len $.Params.Tags }}
+{{ range $index, $element := $.Params.Tags }}
+<a>{{$element}}</a>{{ if lt (add $index 1) $numTags }},{{ end }}
 {{ end }}
