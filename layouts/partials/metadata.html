@@ -2,7 +2,7 @@
 {{ $dateFormat := .Site.Params.dateFormat | default "Jan 2, 2006" }}
 <i class="far fa-calendar-alt"></i>
 <time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
-<i class="fas fa-tags ml-2"></i>
+<i class="fas fa-tags ms-2"></i>
 {{ $numTags := len $.Params.Tags }}
 {{ range $index, $element := $.Params.Tags }}
 <a href="/tags/{{ $element }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }},{{ end }}

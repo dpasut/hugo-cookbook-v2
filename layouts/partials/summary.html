@@ -1,28 +1,28 @@
 <div class="card" style="border-radius: 1%; display: flex; flex-direction: column; justify-content: flex-start;">
     <a href="{{ .Permalink }}">
-        <div class="card-image">
-            <figure class="image is-4by3">
-                <img style="border-radius: 3%; object-fit: contain;" src="{{ $.Params.Recipe_image | absURL }}"
-                    alt="{{ $.Title }}">
+        <div class="card-img-top">
+            <figure class="figure">
+                <img class="figure-img img-fluid" style="border-radius: 3%; object-fit: contain;"
+                    src="{{ $.Params.Recipe_image | absURL }}" alt="{{ $.Title }}">
             </figure>
         </div>
-        <div class="card-content"
+        <div class="card-body"
             style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-            <div class="media-content">
-                <p class="title is-4 has-text-centered">{{ $.Title }}</p>
+            <div class="media-body">
+                <p class="h4 text-center">{{ $.Title }}</p>
                 <!-- <p class="subtitle is-6 "><em>{{ $.Params.Author }}</em></p> -->
             </div>
             <div class="content">
                 <hr>
-                <p class="is-small no-highlight">{{ $.Params.Tagline }}</p>
+                <p class="small no-highlight">{{ $.Params.Tagline }}</p>
                 <hr>
-                <i class="fas fa-tags pr-2 no-highlight"></i>
+                <i class="fas fa-tags pe-2 no-highlight"></i>
                 {{ $numTags := len $.Params.Tags }}
                 {{ range $index, $element := $.Params.Tags }}
                 <a href="/tags/{{ $element }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }},{{ end }}
                 {{ end }}
                 <br>
-                <i class="fas fa-calendar pr-4"></i>{{ .Date.Format "January 2006" }}
+                <i class="fas fa-calendar pe-4"></i>{{ .Date.Format "January 2006" }}
             </div>
         </div>
     </a>

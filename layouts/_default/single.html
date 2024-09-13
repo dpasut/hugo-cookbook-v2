@@ -1,33 +1,33 @@
 {{ define "main" }}
-<div class="section">
-    <div class="columns is-centered">
-        <div class="column is-full-mobile is-half-desktop"
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6"
             style="border-radius: 1%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-            <div class="is-flex"
-                style="justify-content: center; border-radius: 3%; background-color: #f0f5f1; position: relative;">
-                <figure class="image">
-                    <img style="border-radius: 3%; max-height: 512px;" src={{ printf "%s%s" .Site.BaseURL
-                        .Params.Recipe_image }} alt="{{ .Title }}">
+            <div class="d-flex justify-content-center"
+                style="border-radius: 3%; background-color: #f0f5f1; position: relative;">
+                <figure class="figure">
+                    <img class="figure-img img-fluid rounded" style="max-height: 512px;" src={{ printf "%s%s"
+                        .Site.BaseURL .Params.Recipe_image }} alt="{{ .Title }}">
                 </figure>
-                <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="is-rounded">
+                <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">
                     <a href="{{printf " /print/%s/print.html" (.File.BaseFileName | urlize) | urlize | relURL }}"
                         target="_blank"><i class="fas fa-print fa-2x m-3 printButton"></i></a>
                 </div>
             </div>
 
-            <div class="container has-text-centered">
-                <h1 class="title is-bold"> {{ .Title }}</h1>
-                <p class="subtitle is-italic"> {{ .Params.Author }}</p>
-                <div class="container has-text-right">
+            <div class="text-center">
+                <h1 class="fw-bold"> {{ .Title }}</h1>
+                <p class="fst-italic"> {{ .Params.Author }}</p>
+                <div class="text-end">
                     {{ partial "metadata.html" . }}
                 </div>
                 <hr>
             </div>
-            <div class="container has-text-centered">
+            <div class="text-center">
                 {{ partial "statstable.html" . }}
             </div>
             <hr>
-            <p class="subtitle is-italic"> {{ .Params.Tagline }}</p>
+            <p class="fst-italic"> {{ .Params.Tagline }}</p>
             <div class="content">
                 {{ .Content }}
             </div>

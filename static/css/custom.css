@@ -7,8 +7,12 @@ li {
     }
 }
 
-.is-primary {
-    background-color: #444 !important;
+.custom-navbar {
+    background-color: #444;
+    /* Custom color */
+    color: white;
+    /* Text color */
+    max-height: 75px;
 }
 
 .no-highlight {
