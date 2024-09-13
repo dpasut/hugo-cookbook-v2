@@ -20,11 +20,10 @@ li {
 }
 
 .no-highlight {
-    color: #4a4a4a;
+    color: #4a4a4a !important;
     text-align: center;
     margin-top: 0.7em;
 }
-
 
 .card {
     height: 100%;
@@ -33,6 +32,38 @@ li {
 hr {
     margin: 1rem 0;
 }
+
+/* Ensure the image container takes up a fixed amount of space */
+.fixed-image-container {
+    height: 280px;
+    /* Set the height for the image container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #ccc;
+}
+
+.fixed-image {
+    object-fit: cover;
+    /* height: 305px; */
+}
+
+/* Ensure the card body takes up the remaining space in the card */
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+/* Ensure content doesn't overflow */
+.content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .printButton {
     color: white;
@@ -68,9 +99,6 @@ a:hover {
     color: #4a4a4a;
     /* Slightly lighter color on hover */
 }
-
-
-
 
 
 @media (max-width: 991.98px) {

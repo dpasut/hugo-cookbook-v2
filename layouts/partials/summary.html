@@ -1,29 +1,32 @@
-<div class="card" style="border-radius: 1%; display: flex; flex-direction: column; justify-content: flex-start;">
-    <a href="{{ .Permalink }}">
-        <div class="card-img-top">
-            <figure class="figure">
-                <img class="figure-img img-fluid" style="border-radius: 3%; object-fit: contain;"
-                    src="{{ $.Params.Recipe_image | absURL }}" alt="{{ $.Title }}">
+<div class="card h-100" style="border-radius: 1%;">
+    <a href="{{ .Permalink }}" class="d-flex flex-column text-decoration-none">
+        <div class="card-img-top fixed-image-container">
+            <figure class="figure m-0">
+                <img class="figure-img img-fluid fixed-image" src="{{ $.Params.Recipe_image | absURL }}"
+                    alt="{{ $.Title }}">
             </figure>
         </div>
-        <div class="card-body"
-            style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-body d-flex flex-column justify-content-between flex-grow-1 overflow-hidden">
             <div class="media-body">
-                <p class="h4 text-center">{{ $.Title }}</p>
-                <!-- <p class="subtitle is-6 "><em>{{ $.Params.Author }}</em></p> -->
+                <p class="h4 text-center no-highlight">{{ $.Title }}</p>
             </div>
             <div class="content">
                 <hr>
                 <p class="small no-highlight">{{ $.Params.Tagline }}</p>
                 <hr>
-                <i class="fas fa-tags pe-2 no-highlight"></i>
-                {{ $numTags := len $.Params.Tags }}
-                {{ range $index, $element := $.Params.Tags }}
-                <a href="/tags/{{ $element }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }},{{ end }}
-                {{ end }}
-                <br>
-                <i class="fas fa-calendar pe-4"></i>{{ .Date.Format "January 2006" }}
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-tags pe-2 no-highlight mt-0"></i>
+                    {{ $numTags := len $.Params.Tags }}
+                    {{ range $index, $element := $.Params.Tags }}
+                    <a href="/tags/{{ $element }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }}<span
+                        class="me-1">,</span>{{
+                    end }}
+                    {{ end }}
+                </div>
+                <!-- <br> -->
+                <i class="fas fa-calendar pe-3 mt-2 no-highlight"></i>{{ .Date.Format "January 2006" }}
             </div>
         </div>
+
     </a>
 </div>
