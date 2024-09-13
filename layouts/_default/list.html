@@ -1,11 +1,11 @@
 {{ define "main" }}
-<div class="section">
-    <span class="is-size-2 has-text-centered">{{ .Title }}</span>
-    <i class="fas fa-tags fa-2x pl-3 pb-3"></i>
-    <div class="columns is-multiline">
+<div class="container my-5">
+    <span class="h2 d-block text-center">{{ .Title }}</span>
+    <i class="fas fa-tags fa-2x ps-3 pb-3"></i>
+    <div class="row">
         {{ $.Scratch.Set "category" .Title }}
         {{ range .Data.Pages }}
-        <div class="container column is-one-quarter">
+        <div class="col-12 col-md-3 mb-4">
             {{ partial "summary.html" . }} {{/* pass in the element to the partial */}}
         </div>
         {{ end }}

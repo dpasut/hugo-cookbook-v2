@@ -1,31 +1,31 @@
-<div id="searchResults" class="section is-hidden">
-    <h4 class="title is-3"> Search results </h4>
-    <div id="searchResultsCol" class="columns is-multiline">
+<div id="searchResults" class="container d-none">
+    <h4 class="h3"> Search results </h4>
+    <div id="searchResultsCol" class="row">
         {{/* Search template will populate here */}}
     </div>
 </div>
 <script id="search-result-template" type="text/x-js-template">
-    <div class="column is-one-quarter">
+    <div class="col-md-3 mb-4">
         <div class="result" id="summary-${key}">
             <div class="card" style="border-radius: 1%;">
-    <div class="card-image">
-        <figure class="image is-4by3">
-        <img style="border-radius: 3%;" src="${image}" alt="Placeholder image">
-        </figure>
-    </div>
-    <div class="card-content">
-        <div class="media-content">
-            <p class="title is-4 has-text-centered">${title}</p>
-            <p class="subtitle is-6 "><em>{{ $.Params }}</em></p>
-        </div>
-        <div class="content">
-            <p class="is-small">${snippet}</p>
-        </div>
-        <div class="card-footer">
-            <a href="${link}" class="card-footer-item button is-primary">View Recipe</a>
-        </div>
-    </div>
-</div>
+                <div class="card-img-top">
+                    <figure class="figure">
+                        <img class="figure-img img-fluid rounded" style="border-radius: 3%;" src="${image}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-body">
+                    <div class="media-body">
+                        <p class="h4 text-center">${title}</p>
+                        <p class="h6"><em>{{ $.Params }}</em></p>
+                    </div>
+                    <div class="content">
+                        <p class="small">${snippet}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${link}" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </script>
