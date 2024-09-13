@@ -1,4 +1,3 @@
-
 var searchTerm = null;
 
 summaryInclude = 60;
@@ -21,25 +20,25 @@ var fuseOptions = {
 
 u('#searchTerm').on('change keyup', function () { // Set the search value on keyup for the input
   searchTerm = this.value;
-})
+});
 
 function showAlert(message) {
-  u('#alert').removeClass("is-hidden")
-  u('#alert').html(message)
+  u('#alert').removeClass("d-none"); // Bootstrap uses d-none for hiding
+  u('#alert').html(message).addClass("alert alert-danger"); // Adding Bootstrap alert classes
   setTimeout(function () {
-    u('#alert').addClass("is-hidden")
-  }, 3000)
+    u('#alert').addClass("d-none");
+  }, 3000);
 }
 
-u('#searchButton').handle('click', function (e) { //use handle to automatically prevent default
+u('#searchButton').handle('click', function (e) { // use handle to automatically prevent default
   if (searchTerm) {
     u("#searchTerm").text(searchTerm);
-    u('#searchButton').addClass("is-loading");
+    u('#searchButton').addClass("spinner-border spinner-border-sm"); // Bootstrap loading spinner
     executeSearch(searchTerm);
   } else {
-    showAlert("Search cannot be empty!")
+    showAlert("Search cannot be empty!");
   }
-})
+});
 
 function executeSearch(searchQuery) {
   fetch(window.hugoBaseURL + "/index.json").then(r => r.json()).then(function (data) {
@@ -47,21 +46,20 @@ function executeSearch(searchQuery) {
     var fuse = new Fuse(pages, fuseOptions);
     var result = fuse.search(searchQuery);
     if (result.length > 0) {
-      u('#content').addClass("is-hidden"); //hiding our main content to display the results
+      u('#content').addClass("d-none"); // Hiding main content to display the results
       u('#searchResults').children(u('div')).empty(); // clean out any previous search results
-      u('#searchButton').removeClass("is-loading") //change our button back
-      u('#searchResults').removeClass("is-hidden") //show Result area
+      u('#searchButton').removeClass("spinner-border"); // Remove loading spinner
+      u('#searchResults').removeClass("d-none"); // Show result area
       populateResults(result);
     } else {
-      showAlert("No results found!")
-      u('#searchButton').removeClass("is-loading");
+      showAlert("No results found!");
+      u('#searchButton').removeClass("spinner-border");
       u("#searchTerm").text("");
     }
   });
 }
 
 function populateResults(result) {
-  //Object.keys(result).forEach(function(key,value){
   Object.entries(result).forEach(entry => {
     const [key, value] = entry;
     var contents = value.item.contents;
@@ -87,14 +85,13 @@ function populateResults(result) {
     if (snippet.length < 1) {
       snippet += contents.substring(0, summaryInclude * 2);
     }
-    //pull template from hugo template definition
+    // pull template from hugo template definition
     var templateDefinition = u('#search-result-template').html();
-    //replace values
+    // replace values
     var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.permalink, tags: value.item.tags, categories: value.item.categories, snippet: snippet, image: value.item.imageLink });
     u('#searchResultsCol').append(output);
-  })
+  });
 }
-
 
 function param(name) {
   return decodeURIComponent((location.search.split(name + '=')[1] || '').split('&')[0]).replace(/\+/g, ' ');
@@ -103,19 +100,19 @@ function param(name) {
 function render(templateString, data) {
   var conditionalMatches, conditionalPattern, copy;
   conditionalPattern = /\$\{\s*isset ([a-zA-Z]*) \s*\}(.*)\$\{\s*end\s*}/g;
-  //since loop below depends on re.lastInxdex, we use a copy to capture any manipulations whilst inside the loop
+  // since loop below depends on re.lastIndex, we use a copy to capture any manipulations whilst inside the loop
   copy = templateString;
   while ((conditionalMatches = conditionalPattern.exec(templateString)) !== null) {
     if (data[conditionalMatches[1]]) {
-      //valid key, remove conditionals, leave contents.
+      // valid key, remove conditionals, leave contents.
       copy = copy.replace(conditionalMatches[0], conditionalMatches[2]);
     } else {
-      //not valid, remove entire section
+      // not valid, remove entire section
       copy = copy.replace(conditionalMatches[0], '');
     }
   }
   templateString = copy;
-  //now any conditionals removed we can do simple substitution
+  // now any conditionals removed, we can do simple substitution
   var key, find, re;
   for (key in data) {
     find = '\\$\\{\\s*' + key + '\\s*\\}';
