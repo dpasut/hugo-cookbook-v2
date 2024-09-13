@@ -1,4 +1,4 @@
-<div class="row row-cols-2 g-3">
+<div {{ if .Params.Calories }} class="row row-cols-4 g-3" {{ else }} class="row row-cols-3 g-3" {{ end }}>
     <div class="col" style="border-right: 1px solid #dbdbdb">
         <i class="fas fa-concierge-bell fa-lg"></i>
         <div></div>
@@ -13,7 +13,8 @@
         <div></div>
         {{ .Params.Prep_time | default "---"}} Minutes
     </div>
-    <div class="col" style="border-right: 1px solid #dbdbdb">
+
+    <div class="col" {{ if .Params.Calories }} style="border-right: 1px solid #dbdbdb" {{ end }}>
         <i class="fas fa-temperature-high fa-lg"></i>
         <div></div>
         {{ if .Params.Cook }}
