@@ -46,6 +46,19 @@ Copy `default.md` from `themes/cookbook/archetypes/default.md` to `archetypes` a
 
 This will ensure that any new content you create will be of type `recipe`.
 
+## Change Bootswatch theme
+
+To change to a different Bootswatch theme, go to https://bootswatch.com/ and pick your desired theme. In `/themes/cookbook/layouts/partials/printhead.html` and `/themes/cookbook/layouts/partials/head.html`, change the Bootswatch CDN to your desired theme's CDN. For example:
+
+```
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cosmo/bootstrap.min.css" rel="stylesheet">
+```
+will become
+```
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/quartz/bootstrap.min.css" rel="stylesheet">
+```
+It's as simple as that!
+
 ## First Recipe
 
 Simply run `hugo new recipe_name.md` to create your new recipe in the `content` folder.  Modify the markdown file as required for your new recipe.
@@ -59,3 +72,7 @@ Simply run `hugo new recipe_name.md` to create your new recipe in the `content` 
 ## Print Views of the Site
 
 ![Recipe Example](images/tn2.png)
+
+## Print Views of the Site
+
+![Search Results](images/search_results.png)
