@@ -1,10 +1,10 @@
-# Cookbook Theme
+# Hugo Cookbook Theme V2
 
 [Demo Site](https://hugo-cookbook-v2-example-site.netlify.app/)
 
 ## About
 
-This is a theme for Hugo, based on the original [hugo-cookbook](https://github.com/deranjer/hugo-cookbook) that stores all of your recipes and displays them in a viewable format on desktop and mobile.
+This is a theme for Hugo, based on the original [hugo-cookbook](https://github.com/deranjer/hugo-cookbook) that stores all of your recipes and displays them in a viewable format on desktop and mobile. This V2 theme now uses Bootstrap (with Bootswatch theme support). 
 
 Developed with Bootstrap 5 CSS and UmbrellaJS (as well as fuse.js for search).
 
