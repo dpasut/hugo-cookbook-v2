@@ -1,0 +1,69 @@
+/* Print-specific styles */
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    /* Expand container to full width */
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Hide unnecessary elements */
+    .no-print,
+    .printButton,
+    footer,
+    nav {
+        display: none !important;
+    }
+
+    /* Remove shadows and borders */
+    .shadow,
+    .card,
+    .col-md-6 {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* Ensure images break nicely */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* Typography adjustments */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+
+    p, ul, ol {
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+/* Base styles for print view (also visible on screen when viewing /print/ URL) */
+body {
+    background-color: white;
+}
+
+.container {
+    max-width: 100%;
+}
+
+img.figure-img {
+    max-height: 200px;
+    width: auto;
+}
