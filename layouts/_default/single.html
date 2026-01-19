@@ -10,8 +10,9 @@
                         .Site.BaseURL .Params.Recipe_image }} alt="{{ .Title }}">
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">
-                    <a href="{{printf " /print/%s/print.html" (.File.BaseFileName | urlize) | urlize | relURL }}"
-                        target="_blank"><i class="fas fa-print fa-2x m-3 printButton"></i></a>
+                    {{ with .OutputFormats.Get "print" }}
+                    <a href="{{ .Permalink }}" target="_blank"><i class="fas fa-print fa-2x m-3 printButton"></i></a>
+                    {{ end }}
                 </div>
             </div>
 
