@@ -33,7 +33,7 @@
                         {{ range $key, $value := $taxonomy }}
                         {{ if (eq $key ($.Scratch.Get "category")) }}
                         {{ range first 5 $value.Pages }}
-                        <li><a href="{{ .Permalink}}"> {{ .LinkTitle }}</a></li>
+                        <li><a href="{{ .RelPermalink}}"> {{ .LinkTitle }}</a></li>
                         {{ end }}
                         {{ if (gt (len $value) 5) }}
                         <a href={{ $.Scratch.Get "relLink" }}>See All</a>

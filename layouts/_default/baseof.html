@@ -10,7 +10,7 @@
             {{- block "main" . }}{{ end }}
         </div>
         {{- partial "footer.html" . -}}
-        <script>window.hugoBaseURL = {{ .Site.BaseURL }}</script>
+        <script>window.hugoBaseURL = "{{ " / " | relURL }}"</script>
         {{- partial "script.html" . -}}
     </body>
 

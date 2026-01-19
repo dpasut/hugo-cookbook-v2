@@ -1,8 +1,8 @@
 <div class="card h-100" style="border-radius: 1%;">
-    <a href="{{ .Permalink }}" class="d-flex flex-column text-decoration-none">
+    <a href="{{ .RelPermalink }}" class="d-flex flex-column text-decoration-none">
         <div class="card-img-top fixed-image-container">
             <figure class="figure m-0">
-                <img class="figure-img img-fluid fixed-image" src="{{ $.Params.Recipe_image | absURL }}"
+                <img class="figure-img img-fluid fixed-image" src="{{ $.Params.Recipe_image | relURL }}"
                     alt="{{ $.Title }}">
             </figure>
         </div>
