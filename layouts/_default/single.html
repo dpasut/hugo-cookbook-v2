@@ -11,8 +11,7 @@
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">
                     {{ with .OutputFormats.Get "print" }}
-                    <a href="{{ .RelPermalink | replaceRE " index.html$" "" }}" target="_blank"><i
-                            class="fas fa-print fa-2x m-3 printButton"></i></a>
+                    <a href="{{ .RelPermalink }}" target="_blank"><i class="fas fa-print fa-2x m-3 printButton"></i></a>
                     {{ end }}
                 </div>
             </div>
