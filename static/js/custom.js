@@ -33,7 +33,6 @@ function showAlert(message) {
 u('#searchButton').handle('click', function (e) { // use handle to automatically prevent default
   if (searchTerm) {
     u("#searchTerm").text(searchTerm);
-    u('#searchButton').addClass("spinner-border spinner-border-sm"); // Bootstrap loading spinner
     executeSearch(searchTerm);
   } else {
     showAlert("Search cannot be empty!");
@@ -48,12 +47,10 @@ function executeSearch(searchQuery) {
     if (result.length > 0) {
       u('#content').addClass("d-none"); // Hiding main content to display the results
       u('#searchResults').children(u('div')).empty(); // clean out any previous search results
-      u('#searchButton').removeClass("spinner-border"); // Remove loading spinner
       u('#searchResults').removeClass("d-none"); // Show result area
       populateResults(result);
     } else {
       showAlert("No results found!");
-      u('#searchButton').removeClass("spinner-border");
       u("#searchTerm").text("");
     }
   });
