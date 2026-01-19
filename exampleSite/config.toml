@@ -45,11 +45,11 @@ fileName = "/images/favicon.svg" #your favicon here if you wish to change it.
 # The settings for the print format
 [outputFormats]
 [outputFormats.print]
+  name = "print"
   mediaType = "text/html"
-  baseName = "print"
+  baseName = "print/index"
   isPlainText = false
   rel = "print"
   isHTML = true
   noUgly = true
   permalinkable = true
-  path = "print"
