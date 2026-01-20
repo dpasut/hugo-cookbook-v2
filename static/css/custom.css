@@ -109,11 +109,6 @@ a:hover {
 } */
 
 /* Search input wrapper for positioning clear button inside */
-.search-input-wrapper {
-    display: flex;
-    align-items: center;
-}
-
 .search-input-wrapper input {
     padding-right: 2rem;
 }
