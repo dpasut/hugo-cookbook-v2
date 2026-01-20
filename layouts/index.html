@@ -2,7 +2,7 @@
 <div class="container my-5">
     <div class="row">
         {{ range $index, $element := .Site.RegularPages }} {{/* Ranging over all the posts */}}
-        <div class="col-md-3 mb-4">
+        <div class="col-md-3 mb-4 d-flex">
             {{ partial "summary.html" . }} {{/* pass in the element to the partial */}}
         </div>
         {{ end }}
