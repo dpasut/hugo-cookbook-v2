@@ -28,9 +28,13 @@
                 {{ end }}
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" id="searchTerm" type="search" placeholder="Search Recipes..."
-                    aria-label="Search">
-                <button id="searchButton" class="btn btn-secondary" type="submit">Search</button>
+                <div class="input-group">
+                    <input class="form-control" id="searchTerm" type="search" placeholder="Search Recipes..."
+                        aria-label="Search">
+                    <button id="clearSearchButton" class="btn btn-outline-secondary d-none" type="button"
+                        aria-label="Clear search">&times;</button>
+                </div>
+                <button id="searchButton" class="btn btn-secondary ms-2" type="submit">Search</button>
             </form>
         </div>
     </div>
