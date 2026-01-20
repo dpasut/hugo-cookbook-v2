@@ -17,6 +17,36 @@ var fuseOptions = {
 
 u('#searchTerm').on('change keyup', function () { // Set the search value on keyup for the input
   searchTerm = this.value;
+  updateClearButtonVisibility();
+});
+
+function updateClearButtonVisibility() {
+  var hasText = searchTerm && searchTerm.length > 0;
+  var hasResults = !u('#searchResults').hasClass('d-none');
+  if (hasText || hasResults) {
+    u('#clearSearchButton').removeClass('d-none');
+  } else {
+    u('#clearSearchButton').addClass('d-none');
+  }
+}
+
+function clearSearch() {
+  // Clear input value
+  u('#searchTerm').first().value = '';
+  // Reset searchTerm variable
+  searchTerm = null;
+  // Hide search results
+  u('#searchResults').addClass('d-none');
+  // Show main content
+  u('#content').removeClass('d-none');
+  // Empty search results content
+  u('#searchResultsCol').empty();
+  // Hide the clear button
+  u('#clearSearchButton').addClass('d-none');
+}
+
+u('#clearSearchButton').handle('click', function (e) {
+  clearSearch();
 });
 
 function showAlert(message) {
@@ -47,6 +77,7 @@ function executeSearch(searchQuery) {
       u('#searchResults').children(u('div')).empty(); // clean out any previous search results
       u('#searchResults').removeClass("d-none"); // Show result area
       populateResults(result);
+      updateClearButtonVisibility(); // Show clear button
     } else {
       showAlert("No results found!");
       u("#searchTerm").text("");
