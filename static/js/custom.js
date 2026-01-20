@@ -60,18 +60,15 @@ function populateResults(result) {
     var snippet = "";
     var snippetHighlights = [];
     var tags = [];
-    if (fuseOptions.tokenize) {
-      snippetHighlights.push(searchTerm);
-    } else {
-      value.matches.forEach(function (matchKey, mvalue) {
 
-        if (mvalue.key == "tags" || mvalue.key == "categories") {
-          snippetHighlights.push(mvalue.value);
-        } else if (mvalue.key == "contents") {
-          start = mvalue.indices[0][0] - summaryInclude > 0 ? mvalue.indices[0][0] - summaryInclude : 0;
-          end = mvalue.indices[0][1] + summaryInclude < contents.length ? mvalue.indices[0][1] + summaryInclude : contents.length;
+    if (value.matches) {
+      value.matches.forEach(function (match) {
+        if (match.key == "tags" || match.key == "categories") {
+          snippetHighlights.push(match.value);
+        } else if (match.key == "contents" && match.indices && match.indices.length > 0) {
+          var start = match.indices[0][0] - summaryInclude > 0 ? match.indices[0][0] - summaryInclude : 0;
+          var end = match.indices[0][1] + summaryInclude < contents.length ? match.indices[0][1] + summaryInclude : contents.length;
           snippet += contents.substring(start, end);
-          snippetHighlights.push(mvalue.value.substring(mvalue.indices[0][0], mvalue.indices[0][1] - mvalue.indices[0][0] + 1));
         }
       });
     }
