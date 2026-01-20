@@ -108,43 +108,36 @@ a:hover {
     }
 } */
 
-/* Search input wrapper for positioning clear button inside */
-.search-input-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.search-input-wrapper input {
-    padding-right: 2rem;
-}
-
 /* Hide ALL native browser clear buttons in search input */
-.search-input-wrapper input::-webkit-search-cancel-button,
-.search-input-wrapper input::-webkit-search-decoration,
-.search-input-wrapper input::-webkit-search-results-button,
-.search-input-wrapper input::-webkit-search-results-decoration,
-.search-input-wrapper input::-ms-clear,
-.search-input-wrapper input::-ms-reveal {
+#searchTerm::-webkit-search-cancel-button,
+#searchTerm::-webkit-search-decoration,
+#searchTerm::-webkit-search-results-button,
+#searchTerm::-webkit-search-results-decoration,
+#searchTerm::-ms-clear,
+#searchTerm::-ms-reveal {
     display: none;
     -webkit-appearance: none;
     appearance: none;
 }
 
-/* Clear search button - positioned inside input */
-#clearSearchButton {
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.25rem;
-    line-height: 1;
-    padding: 0.1rem 0.4rem;
+/* Search input - add padding for clear button */
+#searchTerm {
+    padding-right: 2rem;
+}
+
+/* Clear search button - use negative margin to overlay inside input */
+.clear-search-btn {
+    margin-left: -2.5rem;
+    z-index: 10;
     border: none;
     background: transparent;
     color: #6c757d;
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0.375rem 0.5rem;
     cursor: pointer;
 }
 
-#clearSearchButton:hover {
+.clear-search-btn:hover {
     color: #dc3545;
 }
