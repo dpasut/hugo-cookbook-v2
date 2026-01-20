@@ -4,11 +4,8 @@ summaryInclude = 60;
 var fuseOptions = {
   shouldSort: true,
   includeMatches: true,
-  threshold: 0.0,
-  tokenize: true,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
+  threshold: 0.3,
+  ignoreLocation: true,
   minMatchCharLength: 1,
   keys: [
     { name: "title", weight: 0.8 },
