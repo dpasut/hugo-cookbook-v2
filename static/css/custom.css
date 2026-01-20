@@ -118,6 +118,18 @@ a:hover {
     padding-right: 2rem;
 }
 
+/* Hide ALL native browser clear buttons in search input */
+.search-input-wrapper input::-webkit-search-cancel-button,
+.search-input-wrapper input::-webkit-search-decoration,
+.search-input-wrapper input::-webkit-search-results-button,
+.search-input-wrapper input::-webkit-search-results-decoration,
+.search-input-wrapper input::-ms-clear,
+.search-input-wrapper input::-ms-reveal {
+    display: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 /* Clear search button - positioned inside input */
 #clearSearchButton {
     position: absolute;
