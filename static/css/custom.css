@@ -109,6 +109,11 @@ a:hover {
 } */
 
 /* Search input wrapper for positioning clear button inside */
+.search-input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 .search-input-wrapper input {
     padding-right: 2rem;
 }
