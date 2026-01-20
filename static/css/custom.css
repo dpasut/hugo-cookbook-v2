@@ -127,17 +127,26 @@ a:hover {
 
 /* Clear search button - use negative margin to overlay inside input */
 .clear-search-btn {
-    margin-left: -2.5rem;
+    margin-left: -2rem;
+    margin-right: 0.25rem;
     z-index: 10;
     border: none;
     background: transparent;
-    color: #6c757d;
-    font-size: 1.25rem;
+    color: #999;
+    font-size: 1rem;
+    font-weight: bold;
     line-height: 1;
     padding: 0.375rem 0.5rem;
     cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .clear-search-btn:hover {
-    color: #dc3545;
+    opacity: 1;
+    color: #333;
+}
+
+.clear-search-btn:focus {
+    outline: none;
 }
