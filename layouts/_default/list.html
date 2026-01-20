@@ -5,7 +5,7 @@
     <div class="row">
         {{ $.Scratch.Set "category" .Title }}
         {{ range .Data.Pages }}
-        <div class="col-12 col-md-3 mb-4">
+        <div class="col-12 col-md-3 mb-4 d-flex">
             {{ partial "summary.html" . }} {{/* pass in the element to the partial */}}
         </div>
         {{ end }}
