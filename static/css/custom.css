@@ -130,8 +130,8 @@ a:hover {
     margin-left: -2rem;
     margin-right: 0.25rem;
     z-index: 10;
-    border: none;
-    background: none;
+    border: none !important;
+    background: none !important;
     color: #999;
     font-size: 1rem;
     font-weight: bold;
