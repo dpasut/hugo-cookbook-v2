@@ -8,11 +8,14 @@ description = "A Hugo theme for organizing and displaying your recipes in a clea
 homepage = "https://github.com/dpasut/hugo-cookbook-v2/"
 tags = ["recipes", "cookbook", "cooking", "responsive"]
 features = []
-min_version = "1.39.0"
 
 [author]
   name = "Daniel Pasut"
-  homepage = "https://github.com/dpasut/hugo-cookbook-v2"
+  homepage = "https://github.com/dpasut"
 
-[example]
-  site = "https://hugo-cookbook-v2-example-site.netlify.app/"
+demosite = "https://hugo-cookbook-v2-example-site.netlify.app/"
+
+[original]
+    author = "Jared Swets"
+    homepage = "https://github.com/deranjer"
+    repo = "https://github.com/deranjer/hugo-cookbook/"
