@@ -1,0 +1,20 @@
+# Development
+.vagrant/
+Vagrantfile
+CLAUDE.md
+
+# Hugo build artifacts
+exampleSite/public/
+exampleSite/.hugo_build.lock
+exampleSite/themes/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
