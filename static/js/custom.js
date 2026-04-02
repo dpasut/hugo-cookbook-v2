@@ -104,6 +104,7 @@ function executeSearch(searchQuery) {
 }
 
 function populateResults(result) {
+  var allOutput = '';
   Object.entries(result).forEach(entry => {
     const [key, value] = entry;
     var contents = value.item.contents;
@@ -130,8 +131,9 @@ function populateResults(result) {
     var templateDefinition = u('#search-result-template').html();
     // replace values
     var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.permalink, tags: value.item.tags, categories: value.item.categories, snippet: snippet, image: value.item.imageLink });
-    u('#searchResultsCol').append(output);
+    allOutput += output;
   });
+  u('#searchResultsCol').append(allOutput);
 }
 
 function param(name) {
@@ -154,11 +156,8 @@ function render(templateString, data) {
   }
   templateString = copy;
   // now any conditionals removed, we can do simple substitution
-  var key, find, re;
-  for (key in data) {
-    find = '\\$\\{\\s*' + key + '\\s*\\}';
-    re = new RegExp(find, 'g');
-    templateString = templateString.replace(re, data[key]);
-  }
+  templateString = templateString.replace(/\$\{\s*(\w+)\s*\}/g, function (match, key) {
+    return key in data ? data[key] : match;
+  });
   return templateString;
 }
