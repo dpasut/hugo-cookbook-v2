@@ -66,22 +66,40 @@ u('#searchButton').handle('click', function (e) { // use handle to automatically
   }
 });
 
+var fuseLoaded = typeof Fuse !== 'undefined';
+
+function loadFuse() {
+  return new Promise(function (resolve, reject) {
+    if (fuseLoaded) { resolve(); return; }
+    var script = document.createElement('script');
+    var baseURL = window.hugoBaseURL.endsWith('/') ? window.hugoBaseURL : window.hugoBaseURL + '/';
+    script.src = baseURL + 'js/fuse.js';
+    script.onload = function () { fuseLoaded = true; resolve(); };
+    script.onerror = function () { reject(new Error('Failed to load search library')); };
+    document.head.appendChild(script);
+  });
+}
+
 function executeSearch(searchQuery) {
-  var baseURL = window.hugoBaseURL.endsWith('/') ? window.hugoBaseURL : window.hugoBaseURL + '/';
-  fetch(baseURL + "index.json").then(r => r.json()).then(function (data) {
-    var pages = data;
-    var fuse = new Fuse(pages, fuseOptions);
-    var result = fuse.search(searchQuery);
-    if (result.length > 0) {
-      u('#content').addClass("d-none"); // Hiding main content to display the results
-      u('#searchResults').children(u('div')).empty(); // clean out any previous search results
-      u('#searchResults').removeClass("d-none"); // Show result area
-      populateResults(result);
-      updateClearButtonVisibility(); // Show clear button
-    } else {
-      showAlert("No results found!");
-      u("#searchTerm").text("");
-    }
+  loadFuse().then(function () {
+    var baseURL = window.hugoBaseURL.endsWith('/') ? window.hugoBaseURL : window.hugoBaseURL + '/';
+    fetch(baseURL + "index.json").then(r => r.json()).then(function (data) {
+      var pages = data;
+      var fuse = new Fuse(pages, fuseOptions);
+      var result = fuse.search(searchQuery);
+      if (result.length > 0) {
+        u('#content').addClass("d-none"); // Hiding main content to display the results
+        u('#searchResults').children(u('div')).empty(); // clean out any previous search results
+        u('#searchResults').removeClass("d-none"); // Show result area
+        populateResults(result);
+        updateClearButtonVisibility(); // Show clear button
+      } else {
+        showAlert("No results found!");
+        u("#searchTerm").text("");
+      }
+    });
+  }).catch(function () {
+    showAlert("Failed to load search. Please try again.");
   });
 }
 
