@@ -150,3 +150,26 @@ a:hover {
 .clear-search-btn:focus {
     outline: none;
 }
+
+.card-rounded {
+    border-radius: 1%;
+}
+
+.recipe-detail-card {
+    border-radius: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.recipe-image-bg {
+    border-radius: 3%;
+    background-color: #f0f5f1;
+    position: relative;
+}
+
+.stats-divider {
+    border-right: 1px solid #dbdbdb;
+}
+
+.search-image-rounded {
+    border-radius: 3%;
+}

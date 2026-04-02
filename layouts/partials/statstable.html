@@ -1,12 +1,12 @@
 <div {{ if .Params.Calories }} class="row row-cols-4 g-3" {{ else }} class="row row-cols-3 g-3" {{ end }}>
-    <div class="col" style="border-right: 1px solid #dbdbdb">
+    <div class="col stats-divider">
         <i class="fas fa-concierge-bell fa-lg"></i>
         <div></div>
         <p class="fw-bold fs-6">Servings</p>
         <div></div>
         {{ .Params.Servings | default ""}} {{ .Params.Servings_text | default "Servings"}}
     </div>
-    <div class="col" style="border-right: 1px solid #dbdbdb">
+    <div class="col stats-divider">
         <i class="fas fa-hourglass-half fa-lg"></i>
         <div></div>
         <p class="fw-bold fs-6">Prep time</p>
@@ -14,7 +14,7 @@
         {{ .Params.Prep_time | default "---"}} Minutes
     </div>
 
-    <div class="col" {{ if .Params.Calories }} style="border-right: 1px solid #dbdbdb" {{ end }}>
+    <div class="col{{ if .Params.Calories }} stats-divider{{ end }}">
         <i class="fas fa-temperature-high fa-lg"></i>
         <div></div>
         {{ if .Params.Cook }}
