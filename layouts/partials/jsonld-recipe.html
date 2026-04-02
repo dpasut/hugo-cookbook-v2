@@ -1,0 +1,16 @@
+{{- if .IsPage -}}
+{{- $recipe := dict "@context" "https://schema.org" "@type" "Recipe" "name" .Title -}}
+{{- with .Params.Tagline }}{{ $recipe = merge $recipe (dict "description" .) }}{{ end -}}
+{{- with .Params.Recipe_image }}{{ $recipe = merge $recipe (dict "image" (. | absURL)) }}{{ end -}}
+{{- with .Params.Author }}{{ $recipe = merge $recipe (dict "author" (dict "@type" "Person" "name" .)) }}{{ end -}}
+{{- $recipe = merge $recipe (dict "datePublished" (.Date.Format "2006-01-02")) -}}
+{{- with .Params.Prep_time }}{{ $recipe = merge $recipe (dict "prepTime" (printf "PT%vM" .)) }}{{ end -}}
+{{- with .Params.Cook_time }}{{ $recipe = merge $recipe (dict "cookTime" (printf "PT%v%s" . (cond (eq ($.Params.Cook_increment | default "Minutes") "Hours") "H" "M"))) }}{{ end -}}
+{{- with .Params.Servings }}{{ $recipe = merge $recipe (dict "recipeYield" (printf "%v" .)) }}{{ end -}}
+{{- with .Params.Tags }}{{ $recipe = merge $recipe (dict "keywords" (delimit . ", ")) }}{{ end -}}
+{{- with .Params.Calories }}{{ $recipe = merge $recipe (dict "nutrition" (dict "@type" "NutritionInformation" "calories" (printf "%v calories" .))) }}{{ end -}}
+{{- with .Params.Tags }}{{ $recipe = merge $recipe (dict "recipeCategory" (index . 0)) }}{{ end -}}
+<script type="application/ld+json">
+{{ $recipe | jsonify (dict "indent" "    ") | safeJS }}
+</script>
+{{- end -}}
