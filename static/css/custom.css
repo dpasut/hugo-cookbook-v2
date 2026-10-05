@@ -108,16 +108,40 @@ a:hover {
     }
 } */
 
-/* Hide ALL native browser clear buttons in search input */
-#searchTerm::-webkit-search-cancel-button,
-#searchTerm::-webkit-search-decoration,
-#searchTerm::-webkit-search-results-button,
-#searchTerm::-webkit-search-results-decoration,
-#searchTerm::-ms-clear,
-#searchTerm::-ms-reveal {
+/* Hide ALL native browser clear buttons in search input.
+   Keep each vendor pseudo-element in its own rule: one unrecognized
+   selector in a comma-separated list drops the ENTIRE rule, which let
+   the native cancel button show next to our custom clear button. */
+#searchTerm::-webkit-search-cancel-button {
     display: none;
     -webkit-appearance: none;
     appearance: none;
+}
+
+#searchTerm::-webkit-search-decoration {
+    display: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#searchTerm::-webkit-search-results-button {
+    display: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#searchTerm::-webkit-search-results-decoration {
+    display: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#searchTerm::-ms-clear {
+    display: none;
+}
+
+#searchTerm::-ms-reveal {
+    display: none;
 }
 
 /* Search input - add padding for clear button */
