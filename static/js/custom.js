@@ -1,12 +1,13 @@
-var searchTerm = null;
+var summaryInclude = 60;
+var searchDebounceMs = 250;
+var minQueryLength = 2;
 
-summaryInclude = 60;
 var fuseOptions = {
   shouldSort: true,
   includeMatches: true,
   threshold: 0.3,
   ignoreLocation: true,
-  minMatchCharLength: 1,
+  minMatchCharLength: 2,
   keys: [
     { name: "title", weight: 0.8 },
     { name: "contents", weight: 0.5 },
@@ -15,13 +16,73 @@ var fuseOptions = {
   ]
 };
 
-u('#searchTerm').on('change keyup', function () { // Set the search value on keyup for the input
-  searchTerm = this.value;
+var fusePromise = null; // cached index + Fuse instance, fetched once
+var debounceTimer = null;
+var lastQuery = null;
+
+function getSearchTerm() {
+  var input = u('#searchTerm').first();
+  return input ? input.value.trim() : '';
+}
+
+function getFuse() {
+  if (!fusePromise) {
+    var baseURL = window.hugoBaseURL.endsWith('/') ? window.hugoBaseURL : window.hugoBaseURL + '/';
+    fusePromise = fetch(baseURL + "index.json")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Search index request failed: " + response.status);
+        }
+        return response.json();
+      })
+      .then(function (pages) {
+        return new Fuse(pages, fuseOptions);
+      })
+      .catch(function (error) {
+        fusePromise = null; // allow a retry on the next search
+        throw error;
+      });
+  }
+  return fusePromise;
+}
+
+// Live search while typing (input also covers paste, cut, and autofill)
+u('#searchTerm').on('input', function () {
   updateClearButtonVisibility();
+  var query = getSearchTerm();
+  clearTimeout(debounceTimer);
+  if (query.length === 0) {
+    hideSearchResults();
+    return;
+  }
+  if (query.length < minQueryLength) {
+    return;
+  }
+  debounceTimer = setTimeout(function () {
+    executeSearch(query);
+  }, searchDebounceMs);
+});
+
+// Handle the form so pressing Enter searches instead of reloading the page
+u('#searchForm').handle('submit', function () {
+  clearTimeout(debounceTimer);
+  var query = getSearchTerm();
+  if (query) {
+    executeSearch(query);
+  } else {
+    showAlert("Search cannot be empty!");
+  }
+});
+
+// Allow Escape to clear the search from the input
+u('#searchTerm').on('keydown', function (e) {
+  if (e.key === 'Escape') {
+    clearSearch();
+  }
 });
 
 function updateClearButtonVisibility() {
-  var hasText = searchTerm && searchTerm.length > 0;
+  var hasText = getSearchTerm().length > 0;
   var hasResults = !u('#searchResults').hasClass('d-none');
   if (hasText || hasResults) {
     u('#clearSearchButton').removeClass('d-none');
@@ -30,23 +91,29 @@ function updateClearButtonVisibility() {
   }
 }
 
-function clearSearch() {
-  // Clear input value
-  u('#searchTerm').first().value = '';
-  // Reset searchTerm variable
-  searchTerm = null;
-  // Hide search results
+function hideSearchResults() {
+  lastQuery = null;
   u('#searchResults').addClass('d-none');
-  // Show main content
   u('#content').removeClass('d-none');
-  // Empty search results content
   u('#searchResultsCol').empty();
-  // Hide the clear button
-  u('#clearSearchButton').addClass('d-none');
+  updateClearButtonVisibility();
 }
 
-u('#clearSearchButton').handle('click', function (e) {
+function clearSearch() {
+  clearTimeout(debounceTimer);
+  var input = u('#searchTerm').first();
+  if (input) {
+    input.value = '';
+  }
+  hideSearchResults();
+}
+
+u('#clearSearchButton').handle('click', function () {
   clearSearch();
+  var input = u('#searchTerm').first();
+  if (input) {
+    input.focus();
+  }
 });
 
 function showAlert(message) {
@@ -57,72 +124,113 @@ function showAlert(message) {
   }, 3000);
 }
 
-u('#searchButton').handle('click', function (e) { // use handle to automatically prevent default
-  if (searchTerm) {
-    u("#searchTerm").text(searchTerm);
-    executeSearch(searchTerm);
-  } else {
-    showAlert("Search cannot be empty!");
-  }
-});
-
 function executeSearch(searchQuery) {
-  var baseURL = window.hugoBaseURL.endsWith('/') ? window.hugoBaseURL : window.hugoBaseURL + '/';
-  fetch(baseURL + "index.json").then(r => r.json()).then(function (data) {
-    var pages = data;
-    var fuse = new Fuse(pages, fuseOptions);
-    var result = fuse.search(searchQuery);
-    if (result.length > 0) {
-      u('#content').addClass("d-none"); // Hiding main content to display the results
-      u('#searchResults').children(u('div')).empty(); // clean out any previous search results
-      u('#searchResults').removeClass("d-none"); // Show result area
-      populateResults(result);
-      updateClearButtonVisibility(); // Show clear button
-    } else {
-      showAlert("No results found!");
-      u("#searchTerm").text("");
+  if (searchQuery === lastQuery) {
+    return; // nothing changed since the last search
+  }
+  getFuse().then(function (fuse) {
+    if (searchQuery !== getSearchTerm()) {
+      return; // input changed while the index was loading
     }
+    lastQuery = searchQuery;
+    var result = fuse.search(searchQuery);
+    u('#content').addClass("d-none"); // Hide main content to display the results
+    u('#searchResultsCol').empty(); // Clean out any previous search results
+    u('#searchResults').removeClass("d-none"); // Show result area
+    if (result.length > 0) {
+      u('#searchResultsHeading').text('Search results for “' + searchQuery + '” (' + result.length + ')');
+      populateResults(result, searchQuery);
+    } else {
+      u('#searchResultsHeading').text('Search results');
+      u('#searchResultsCol').append(
+        '<div class="col-12"><p class="text-muted">No recipes found for “' +
+        escapeHtml(searchQuery) + '”.</p></div>'
+      );
+    }
+    updateClearButtonVisibility();
+  }).catch(function () {
+    showAlert("Search is unavailable right now. Please try again.");
   });
 }
 
-function populateResults(result) {
+function populateResults(result, searchQuery) {
+  var templateDefinition = u('#search-result-template').html();
   var allOutput = '';
-  Object.entries(result).forEach(entry => {
-    const [key, value] = entry;
-    var contents = value.item.contents;
-    var snippet = "";
-    var snippetHighlights = [];
-    var tags = [];
+  result.forEach(function (value, key) {
+    var contents = value.item.contents || '';
+    var snippet = '';
 
     if (value.matches) {
+      // Use the longest content match for the most relevant snippet
+      var bestMatch = null;
       value.matches.forEach(function (match) {
-        if (match.key == "tags" || match.key == "categories") {
-          snippetHighlights.push(match.value);
-        } else if (match.key == "contents" && match.indices && match.indices.length > 0) {
-          var start = match.indices[0][0] - summaryInclude > 0 ? match.indices[0][0] - summaryInclude : 0;
-          var end = match.indices[0][1] + summaryInclude < contents.length ? match.indices[0][1] + summaryInclude : contents.length;
-          snippet += contents.substring(start, end);
+        if (match.key === "contents" && match.indices && match.indices.length > 0) {
+          match.indices.forEach(function (indices) {
+            if (!bestMatch || (indices[1] - indices[0]) > (bestMatch[1] - bestMatch[0])) {
+              bestMatch = indices;
+            }
+          });
         }
       });
+      if (bestMatch) {
+        var start = Math.max(bestMatch[0] - summaryInclude, 0);
+        var end = Math.min(bestMatch[1] + summaryInclude, contents.length);
+        snippet = (start > 0 ? '…' : '') +
+          contents.substring(start, end) +
+          (end < contents.length ? '…' : '');
+      }
     }
 
     if (snippet.length < 1) {
-      snippet += contents.substring(0, summaryInclude * 2);
+      snippet = contents.substring(0, summaryInclude * 2);
+      if (contents.length > snippet.length) {
+        snippet += '…';
+      }
     }
-    // pull template from hugo template definition
-    var templateDefinition = u('#search-result-template').html();
-    // replace values
-    var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.permalink, tags: value.item.tags, categories: value.item.categories, snippet: snippet, image: value.item.imageLink });
+
+    var output = render(templateDefinition, {
+      key: key,
+      title: value.item.title,
+      link: value.item.permalink,
+      tags: value.item.tags,
+      categories: value.item.categories,
+      snippet: snippet,
+      image: value.item.imageLink
+    }, searchQuery);
     allOutput += output;
   });
   u('#searchResultsCol').append(allOutput);
 }
 
-function param(name) {
-  return decodeURIComponent((location.search.split(name + '=')[1] || '').split('&')[0]).replace(/\+/g, ' ');
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
-function render(templateString, data) {
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Wrap occurrences of the query terms in <mark> (input must already be escaped)
+function highlightTerms(escapedText, searchQuery) {
+  if (!searchQuery) {
+    return escapedText;
+  }
+  var terms = searchQuery.trim().split(/\s+/).filter(function (term) {
+    return term.length >= minQueryLength;
+  });
+  if (terms.length === 0) {
+    return escapedText;
+  }
+  var pattern = new RegExp('(' + terms.map(escapeRegExp).join('|') + ')', 'gi');
+  return escapedText.replace(pattern, '<mark>$1</mark>');
+}
+
+function render(templateString, data, searchQuery) {
   var conditionalMatches, conditionalPattern, copy;
   conditionalPattern = /\$\{\s*isset ([a-zA-Z]*) \s*\}(.*)\$\{\s*end\s*}/g;
   // since loop below depends on re.lastIndex, we use a copy to capture any manipulations whilst inside the loop
@@ -137,9 +245,16 @@ function render(templateString, data) {
     }
   }
   templateString = copy;
-  // now any conditionals removed, we can do simple substitution
+  // now any conditionals removed, we can do simple substitution (escaped to prevent HTML injection)
   templateString = templateString.replace(/\$\{\s*(\w+)\s*\}/g, function (match, key) {
-    return key in data ? data[key] : match;
+    if (!(key in data) || data[key] == null) {
+      return '';
+    }
+    var escaped = escapeHtml(data[key]);
+    if (key === 'title' || key === 'snippet') {
+      return highlightTerms(escaped, searchQuery);
+    }
+    return escaped;
   });
   return templateString;
 }
