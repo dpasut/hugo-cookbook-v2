@@ -7,7 +7,8 @@
         <div class="col-12 col-md-4 col-lg-3 mb-4 d-flex">
             <div class="card card-rounded h-100 w-100 terms-card">
                 <header class="card-header d-flex justify-content-between align-items-center">
-                    <a class="h5 mb-0 text-decoration-none" href="{{ .Page.RelPermalink }}">
+                    <a class="h5 mb-0 text-decoration-none text-truncate" href="{{ .Page.RelPermalink }}"
+                        title="{{ .Page.Title }}">
                         <i class="fas fa-tags pe-2"></i>{{ .Page.Title }}
                     </a>
                     <span class="badge bg-secondary rounded-pill"
@@ -17,7 +18,7 @@
                     <ul class="list-unstyled mb-2">
                         {{ range first 5 .Pages }}
                         <li class="text-truncate">
-                            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                            <a href="{{ .RelPermalink }}" title="{{ .LinkTitle }}">{{ .LinkTitle }}</a>
                         </li>
                         {{ end }}
                     </ul>
