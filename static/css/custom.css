@@ -234,3 +234,17 @@ a:hover {
 .terms-card .badge {
     background-color: #4a4a4a !important;
 }
+
+/* Tag links (recipe cards and recipe metadata): match the theme's
+   grayscale palette instead of Bootstrap's default bright-blue links */
+.tag-link {
+    color: #4a4a4a;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.tag-link:hover,
+.tag-link:focus {
+    color: #212529;
+    text-decoration: underline;
+}
