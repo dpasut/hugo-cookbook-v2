@@ -23,7 +23,9 @@
     {{- $description := .Site.Params.description | default .Site.Title -}}
     {{- with .Params.Tagline }}{{ $description = . }}{{ end -}}
     {{- $image := .Site.Params.logo.fileName | default "/images/defaultImage.png" | absURL -}}
-    {{- with .Params.Recipe_image }}{{ $image = . | absURL }}{{ end -}}
+    {{- if .IsPage -}}
+    {{- with .Params.Recipe_image | default .Site.Params.front.defaultImage }}{{ $image = . | absURL }}{{ end -}}
+    {{- end -}}
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ .Permalink }}">
     <meta property="og:title" content="{{ $title }}">
