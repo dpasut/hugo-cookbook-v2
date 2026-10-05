@@ -4,8 +4,16 @@
 {{- with .Params.Recipe_image | default .Site.Params.front.defaultImage }}{{ $recipe = merge $recipe (dict "image" (. | absURL)) }}{{ end -}}
 {{- with .Params.Author }}{{ $recipe = merge $recipe (dict "author" (dict "@type" "Person" "name" .)) }}{{ end -}}
 {{- $recipe = merge $recipe (dict "datePublished" (.Date.Format "2006-01-02")) -}}
-{{- with .Params.Prep_time }}{{ $recipe = merge $recipe (dict "prepTime" (printf "PT%vM" .)) }}{{ end -}}
-{{- with .Params.Cook_time }}{{ $recipe = merge $recipe (dict "cookTime" (printf "PT%v%s" . (cond (eq (lower ($.Params.Cook_increment | default "minutes")) "hours") "H" "M"))) }}{{ end -}}
+{{- /* Times may be ranges like "8-10"; ISO 8601 durations need a single
+       number, so use the last (upper) value found. */ -}}
+{{- with .Params.Prep_time -}}
+{{- $nums := findRE `[0-9]+(\.[0-9]+)?` (printf "%v" .) -}}
+{{- with $nums }}{{ $recipe = merge $recipe (dict "prepTime" (printf "PT%sM" (index . (sub (len .) 1)))) }}{{ end -}}
+{{- end -}}
+{{- with .Params.Cook_time -}}
+{{- $nums := findRE `[0-9]+(\.[0-9]+)?` (printf "%v" .) -}}
+{{- with $nums }}{{ $recipe = merge $recipe (dict "cookTime" (printf "PT%s%s" (index . (sub (len .) 1)) (cond (eq (lower ($.Params.Cook_increment | default "minutes")) "hours") "H" "M"))) }}{{ end -}}
+{{- end -}}
 {{- with .Params.Servings }}{{ $recipe = merge $recipe (dict "recipeYield" (printf "%v" .)) }}{{ end -}}
 {{- with .Params.Tags }}{{ $recipe = merge $recipe (dict "keywords" (delimit . ", ")) }}{{ end -}}
 {{- with .Params.Calories }}{{ $recipe = merge $recipe (dict "nutrition" (dict "@type" "NutritionInformation" "calories" (printf "%v calories" .))) }}{{ end -}}
