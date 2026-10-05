@@ -197,3 +197,40 @@ a:hover {
 .search-image-rounded {
     border-radius: 3%;
 }
+/* Taxonomy terms page: match the theme's grayscale palette instead of
+   Bootstrap's default bright-blue links */
+.terms-card .card-header {
+    background-color: #f8f9fa;
+}
+
+.terms-card .card-header a {
+    color: #4a4a4a;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.terms-card .card-header a:hover,
+.terms-card .card-header a:focus {
+    color: #212529;
+}
+
+.terms-card .card-body li {
+    font-size: 1rem;
+    padding: 0.15rem 0;
+}
+
+.terms-card .card-body a {
+    color: #4a4a4a;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.terms-card .card-body a:hover,
+.terms-card .card-body a:focus {
+    color: #212529;
+    text-decoration: underline;
+}
+
+.terms-card .badge {
+    background-color: #4a4a4a !important;
+}
