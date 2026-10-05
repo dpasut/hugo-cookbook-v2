@@ -5,7 +5,8 @@
             <div class="d-flex justify-content-center recipe-image-bg">
                 <figure class="figure">
                     <img class="figure-img img-fluid rounded" style="max-height: 512px;"
-                        src="{{ .Params.Recipe_image | relURL }}" alt="{{ .Title }}">
+                        src="{{ .Params.Recipe_image | default .Site.Params.front.defaultImage | relURL }}"
+                        alt="{{ .Title }}">
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">
                     {{ with .OutputFormats.Get "print" }}
@@ -17,7 +18,7 @@
 
             <div class="text-center">
                 <h1 class="fw-bold"> {{ .Title }}</h1>
-                <p class="fst-italic"> {{ .Params.Author }}</p>
+                <p class="fst-italic"> {{ .Params.Author | default .Site.Params.front.defaultAuthor }}</p>
                 <div class="text-end">
                     {{ partial "metadata.html" . }}
                 </div>
