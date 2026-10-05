@@ -7,9 +7,9 @@
         {{- partial "alert.html" -}}
         {{- partial "header.html" . -}}
         {{- partial "searchResults.html" -}}
-        <div id="content">
+        <main id="content">
             {{- block "main" . }}{{ end }}
-        </div>
+        </main>
         {{- partial "footer.html" . -}}
         <script>window.hugoBaseURL = "{{ .Site.Home.RelPermalink }}"</script>
         {{- partial "script.html" . -}}

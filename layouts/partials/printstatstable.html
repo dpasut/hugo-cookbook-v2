@@ -16,13 +16,13 @@
     <div class="col stats-divider" style="padding: 0px;">
         <i class="fas fa-temperature-high"></i>
         <div></div>
-        {{ if .Params.Cook }}
-        <p class="fw-bold fs-6">Cooking Time</p>
-        {{ else }}
+        {{ if eq .Params.Cook false }}
         <p class="fw-bold fs-6">Cooling Time</p>
+        {{ else }}
+        <p class="fw-bold fs-6">Cooking Time</p>
         {{ end }}
         <div></div>
-        {{ .Params.Cook_time | default "---"}} {{ .Params.Cook_increment | default "Minutes"}}
+        {{ .Params.Cook_time | default "---"}} {{ .Params.Cook_increment | default "Minutes" | humanize }}
         <div></div>
         {{ if .Params.Cook_temperature_degrees }}
         {{ if eq .Params.Cook_temperature_unit "F" }}
