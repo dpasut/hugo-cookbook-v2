@@ -1,50 +1,31 @@
 {{ define "main" }}
 <div class="container my-5">
+    <span class="h2 d-block text-center">{{ .Title }}</span>
+    <i class="fas fa-tags fa-2x ps-3 pb-3"></i>
     <div class="row">
-        {{ range .Pages.ByPublishDate.Reverse }}
-        {{ $.Scratch.Set "relLink" .RelPermalink }}
-        <div class="col-md-3">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        <a class="h5" href="{{ .RelPermalink }}">{{ .Title }}</a>
-                        <i class="fas fa-tags ps-3 pb-3"></i>
-                    </p>
-                    <div class="pt-4 pe-2">
-                        {{ $.Scratch.Set "category" .Title }}
-                        {{ range $name, $taxonomy := .Site.Taxonomies }}
-                        {{ range $key, $value := $taxonomy }}
-                        {{ if (eq $key ($.Scratch.Get "category")) }}
-                        {{ $.Scratch.Set "count" (len $value) }}
-                        {{ if (gt (len $value) 1 ) }}
-                        {{ len $value }} Recipes Found
-                        {{ else }}
-                        1 Recipe Found
-                        {{ end }}
-                        {{ end }}
-                        {{ end }}
-                        {{ end }}
-                    </div>
+        {{ range .Data.Terms.ByCount }}
+        <div class="col-12 col-md-4 col-lg-3 mb-4 d-flex">
+            <div class="card card-rounded h-100 w-100">
+                <header class="card-header d-flex justify-content-between align-items-center">
+                    <a class="h5 mb-0 text-decoration-none" href="{{ .Page.RelPermalink }}">
+                        <i class="fas fa-tags pe-2"></i>{{ .Page.Title }}
+                    </a>
+                    <span class="badge bg-secondary rounded-pill"
+                        title="{{ .Count }} {{ if eq .Count 1 }}recipe{{ else }}recipes{{ end }}">{{ .Count }}</span>
                 </header>
-                <div class="card-body">
-                    <div class="content">
-                        {{ $.Scratch.Set "category" .Title }}
-                        {{ range $name, $taxonomy := .Site.Taxonomies }}
-                        {{ range $key, $value := $taxonomy }}
-                        {{ if (eq $key ($.Scratch.Get "category")) }}
-                        {{ range first 5 $value.Pages }}
-                        <li><a href="{{ .RelPermalink}}"> {{ .LinkTitle }}</a></li>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <ul class="list-unstyled mb-2">
+                        {{ range first 5 .Pages }}
+                        <li class="text-truncate">
+                            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                        </li>
                         {{ end }}
-                        {{ if (gt (len $value) 5) }}
-                        <a href={{ $.Scratch.Get "relLink" }}>See All</a>
-                        {{ end }}
-                        {{ end }}
-                        {{ end }}
-                        {{ end }}
-                        <a class="summary" href="{{ .RelPermalink }}">
-                            <p>{{ .Summary }}</p>
-                        </a>
-                    </div>
+                    </ul>
+                    {{ if gt .Count 5 }}
+                    <a class="small align-self-start" href="{{ .Page.RelPermalink }}">
+                        See all {{ .Count }} recipes &rarr;
+                    </a>
+                    {{ end }}
                 </div>
             </div>
         </div>
