@@ -6,6 +6,8 @@
                 <figure class="figure">
                     <img class="figure-img img-fluid rounded" style="max-height: 512px;"
                         src="{{ .Params.Recipe_image | default .Site.Params.front.defaultImage | relURL }}"
+                        width="{{ .Params.image_width | default .Site.Params.front.defaultImageWidth | default 512 }}"
+                        height="{{ .Params.image_height | default .Site.Params.front.defaultImageHeight | default 512 }}"
                         alt="{{ .Title }}">
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">

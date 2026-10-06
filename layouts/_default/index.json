@@ -1,5 +1,5 @@
 {{- $.Scratch.Add "index" slice -}}
 {{- range .Site.RegularPages -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .RelPermalink "imageLink" (.Params.Recipe_image | default .Site.Params.front.defaultImage | relURL)) -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .RelPermalink "imageLink" (.Params.Recipe_image | default .Site.Params.front.defaultImage | relURL) "imageWidth" (.Params.image_width | default .Site.Params.front.defaultImageWidth | default 512) "imageHeight" (.Params.image_height | default .Site.Params.front.defaultImageHeight | default 512)) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
