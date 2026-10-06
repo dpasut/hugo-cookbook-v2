@@ -248,3 +248,10 @@ a:hover {
     color: #212529;
     text-decoration: underline;
 }
+
+/* Keep tag links clickable above the card's stretched-link overlay
+   (Bootstrap's ::after overlay sits at z-index 1) */
+.card .tag-link {
+    position: relative;
+    z-index: 2;
+}
