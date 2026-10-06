@@ -1,0 +1,51 @@
+{{- /*
+  Returns the recipe image's src plus its real pixel dimensions, so the
+  width/height attributes match the image's true aspect ratio.
+
+  Usage: {{ $img := partial "image-dims.html" (dict "page" . "maxHeight" 512) }}
+  - maxHeight (optional): scale the dimensions down (never up) so the height
+    fits, matching a CSS max-height on the <img>.
+
+  The real size is read from the site's static/ folder, then from any theme's
+  static/ folder. If the file can't be read (remote URL, SVG, missing file),
+  it falls back to image_width/image_height front matter, then the site's
+  defaultImageWidth/defaultImageHeight, then 512.
+*/ -}}
+{{- $page := .page -}}
+{{- $src := $page.Params.Recipe_image | default site.Params.front.defaultImage -}}
+{{- $w := $page.Params.image_width | default site.Params.front.defaultImageWidth | default 512 | int -}}
+{{- $h := $page.Params.image_height | default site.Params.front.defaultImageHeight | default 512 | int -}}
+
+{{- with $src -}}
+  {{- $rel := strings.TrimPrefix "/" . -}}
+  {{- $ext := path.Ext $rel | lower -}}
+  {{- if and (not (strings.HasPrefix $rel "http")) (in (slice ".jpg" ".jpeg" ".png" ".gif" ".webp" ".bmp" ".tif" ".tiff") $ext) -}}
+    {{- $candidates := slice (path.Join "static" $rel) -}}
+    {{- if fileExists "themes" -}}
+      {{- range readDir "themes" -}}
+        {{- if .IsDir -}}
+          {{- $candidates = $candidates | append (path.Join "themes" .Name "static" $rel) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $found := false -}}
+    {{- range $candidates -}}
+      {{- if and (not $found) (fileExists .) -}}
+        {{- with imageConfig . -}}
+          {{- $w = .Width -}}
+          {{- $h = .Height -}}
+          {{- $found = true -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- with $.maxHeight -}}
+  {{- if gt $h . -}}
+    {{- $w = math.Round (div (mul (float $w) .) $h) | int -}}
+    {{- $h = . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return dict "src" $src "width" $w "height" $h -}}

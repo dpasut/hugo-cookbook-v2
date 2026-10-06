@@ -1,10 +1,9 @@
 <div class="card h-100 w-100 card-rounded">
     <div class="card-img-top fixed-image-container">
         <figure class="figure m-0">
+            {{- $img := partial "image-dims.html" (dict "page" $) }}
             <img class="figure-img img-fluid fixed-image"
-                src="{{ $.Params.Recipe_image | default $.Site.Params.front.defaultImage | relURL }}"
-                width="{{ $.Params.image_width | default $.Site.Params.front.defaultImageWidth | default 512 }}"
-                height="{{ $.Params.image_height | default $.Site.Params.front.defaultImageHeight | default 512 }}"
+                src="{{ $img.src | relURL }}" width="{{ $img.width }}" height="{{ $img.height }}"
                 alt="{{ $.Title }}" loading="lazy">
         </figure>
     </div>
