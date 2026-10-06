@@ -4,10 +4,9 @@
         <div class="col-12 col-md-6 recipe-detail-card">
             <div class="d-flex justify-content-center recipe-image-bg">
                 <figure class="figure">
+                    {{- $img := partial "image-dims.html" (dict "page" . "maxHeight" 512) }}
                     <img class="figure-img img-fluid rounded" style="max-height: 512px;"
-                        src="{{ .Params.Recipe_image | default .Site.Params.front.defaultImage | relURL }}"
-                        width="{{ .Params.image_width | default .Site.Params.front.defaultImageWidth | default 512 }}"
-                        height="{{ .Params.image_height | default .Site.Params.front.defaultImageHeight | default 512 }}"
+                        src="{{ $img.src | relURL }}" width="{{ $img.width }}" height="{{ $img.height }}"
                         alt="{{ .Title }}">
                 </figure>
                 <div id="printButton" style="position: absolute; bottom: 0; right: 0;" class="rounded-circle">
