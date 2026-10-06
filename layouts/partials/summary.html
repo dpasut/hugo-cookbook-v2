@@ -4,6 +4,8 @@
             <figure class="figure m-0">
                 <img class="figure-img img-fluid fixed-image"
                     src="{{ $.Params.Recipe_image | default $.Site.Params.front.defaultImage | relURL }}"
+                    width="{{ $.Params.image_width | default $.Site.Params.front.defaultImageWidth | default 512 }}"
+                    height="{{ $.Params.image_height | default $.Site.Params.front.defaultImageHeight | default 512 }}"
                     alt="{{ $.Title }}" loading="lazy">
             </figure>
         </div>

@@ -195,7 +195,9 @@ function populateResults(result, searchQuery) {
       tags: value.item.tags,
       categories: value.item.categories,
       snippet: snippet,
-      image: value.item.imageLink
+      image: value.item.imageLink,
+      imageWidth: value.item.imageWidth || 512,
+      imageHeight: value.item.imageHeight || 512
     }, searchQuery);
     allOutput += output;
   });
