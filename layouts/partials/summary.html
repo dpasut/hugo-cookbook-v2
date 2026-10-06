@@ -1,35 +1,37 @@
 <div class="card h-100 w-100 card-rounded">
-    <a href="{{ .RelPermalink }}" class="d-flex flex-column text-decoration-none">
-        <div class="card-img-top fixed-image-container">
-            <figure class="figure m-0">
-                <img class="figure-img img-fluid fixed-image"
-                    src="{{ $.Params.Recipe_image | default $.Site.Params.front.defaultImage | relURL }}"
-                    width="{{ $.Params.image_width | default $.Site.Params.front.defaultImageWidth | default 512 }}"
-                    height="{{ $.Params.image_height | default $.Site.Params.front.defaultImageHeight | default 512 }}"
-                    alt="{{ $.Title }}" loading="lazy">
-            </figure>
+    <div class="card-img-top fixed-image-container">
+        <figure class="figure m-0">
+            <img class="figure-img img-fluid fixed-image"
+                src="{{ $.Params.Recipe_image | default $.Site.Params.front.defaultImage | relURL }}"
+                width="{{ $.Params.image_width | default $.Site.Params.front.defaultImageWidth | default 512 }}"
+                height="{{ $.Params.image_height | default $.Site.Params.front.defaultImageHeight | default 512 }}"
+                alt="{{ $.Title }}" loading="lazy">
+        </figure>
+    </div>
+    <div class="card-body d-flex flex-column justify-content-between flex-grow-1 overflow-hidden">
+        <div class="media-body">
+            <p class="h4 text-center no-highlight">
+                {{/* stretched-link makes the whole card clickable without
+                     wrapping the card (and its tag links) in a nested <a> */}}
+                <a class="stretched-link text-decoration-none no-highlight"
+                    href="{{ .RelPermalink }}">{{ $.Title }}</a>
+            </p>
         </div>
-        <div class="card-body d-flex flex-column justify-content-between flex-grow-1 overflow-hidden">
-            <div class="media-body">
-                <p class="h4 text-center no-highlight">{{ $.Title }}</p>
+        <div class="content">
+            <hr>
+            <p class="small no-highlight">{{ $.Params.Tagline }}</p>
+            <hr>
+            <div class="d-flex flex-wrap align-items-center">
+                <i class="fas fa-tags pe-2 no-highlight mt-0"></i>
+                {{ $numTags := len $.Params.Tags }}
+                {{ range $index, $element := $.Params.Tags }}
+                <a class="tag-link" href="{{ printf "tags/%s/" ($element | urlize) | relLangURL }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }}<span
+                    class="me-1">,</span>{{
+                end }}
+                {{ end }}
             </div>
-            <div class="content">
-                <hr>
-                <p class="small no-highlight">{{ $.Params.Tagline }}</p>
-                <hr>
-                <div class="d-flex flex-wrap align-items-center">
-                    <i class="fas fa-tags pe-2 no-highlight mt-0"></i>
-                    {{ $numTags := len $.Params.Tags }}
-                    {{ range $index, $element := $.Params.Tags }}
-                    <a class="tag-link" href="{{ printf "tags/%s/" ($element | urlize) | relLangURL }}">{{$element}}</a>{{ if lt (add $index 1) $numTags }}<span
-                        class="me-1">,</span>{{
-                    end }}
-                    {{ end }}
-                </div>
-                <!-- <br> -->
-                <i class="fas fa-calendar pe-3 mt-2 no-highlight"></i>{{ .Date.Format "January 2006" }}
-            </div>
+            <!-- <br> -->
+            <i class="fas fa-calendar pe-3 mt-2 no-highlight"></i>{{ .Date.Format "January 2006" }}
         </div>
-
-    </a>
+    </div>
 </div>
