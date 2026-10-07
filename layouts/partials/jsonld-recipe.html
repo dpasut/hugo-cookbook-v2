@@ -3,6 +3,7 @@
 {{- with .Params.Tagline }}{{ $recipe = merge $recipe (dict "description" .) }}{{ end -}}
 {{- with .Params.Recipe_image | default .Site.Params.front.defaultImage }}{{ $recipe = merge $recipe (dict "image" (. | absURL)) }}{{ end -}}
 {{- with .Params.Author }}{{ $recipe = merge $recipe (dict "author" (dict "@type" "Person" "name" .)) }}{{ end -}}
+{{- with .Params.source_url }}{{ $recipe = merge $recipe (dict "isBasedOn" .) }}{{ end -}}
 {{- $recipe = merge $recipe (dict "datePublished" (.Date.Format "2006-01-02")) -}}
 {{- /* Times may be ranges like "8-10"; ISO 8601 durations need a single
        number, so use the last (upper) value found. */ -}}

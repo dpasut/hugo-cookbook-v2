@@ -237,14 +237,17 @@ a:hover {
 
 /* Tag links (recipe cards and recipe metadata): match the theme's
    grayscale palette instead of Bootstrap's default bright-blue links */
-.tag-link {
+.tag-link,
+.source-link {
     color: #4a4a4a;
     text-decoration: none;
     transition: color 0.15s ease-in-out;
 }
 
 .tag-link:hover,
-.tag-link:focus {
+.tag-link:focus,
+.source-link:hover,
+.source-link:focus {
     color: #212529;
     text-decoration: underline;
 }

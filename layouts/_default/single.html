@@ -20,6 +20,10 @@
             <div class="text-center">
                 <h1 class="fw-bold"> {{ .Title }}</h1>
                 <p class="fst-italic"> {{ .Params.Author | default .Site.Params.front.defaultAuthor }}</p>
+                {{- with .Params.source_url }}
+                <p class="small"> Adapted from <a class="source-link" href="{{ . }}" target="_blank"
+                        rel="noopener noreferrer">{{ $.Params.source_name | default (strings.TrimPrefix "www." (urls.Parse .).Host) }}</a></p>
+                {{- end }}
                 <div class="text-end">
                     {{ partial "metadata.html" . }}
                 </div>
