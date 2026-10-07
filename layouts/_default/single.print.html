@@ -11,6 +11,9 @@
                             <div class="col-md-6">
                                 <h1 id="mainTitle" class="fw-bold"> {{ .Title }} </h1>
                                 <p class="fst-italic mb-2"> {{ .Params.Author | default .Site.Params.front.defaultAuthor }}</p>
+                                {{- with .Params.source_url }}
+                                <p class="small mb-2"> Adapted from {{ $.Params.source_name | default (strings.TrimPrefix "www." (urls.Parse .).Host) }}: {{ . }}</p>
+                                {{- end }}
                                 {{ partial "printmetadata.html" . }}
                                 <p class="fst-italic mt-2"> {{ .Params.Tagline }}</p>
                             </div>

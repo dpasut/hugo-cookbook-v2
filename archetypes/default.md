@@ -17,6 +17,8 @@ cook_time: 8 #in minutes or hours #can be BLANK
 cook_temperature_unit: C # set to C or F
 cook_temperature_degrees: 180 #can be BLANK
 calories: 300 #in kcal #can be BLANK
+source_url: # link to the original recipe, if adapted from somewhere #can be BLANK
+source_name: # link text for source_url, defaults to the site's domain #can be BLANK
 
 
 # For ingredient subheadings (if you use them), please use the h4 header.  For print view I have those elements targeted

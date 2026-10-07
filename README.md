@@ -77,6 +77,17 @@ hugo server --disableFastRender
 
 Visit `http://localhost:1313` to see your site.
 
+### Linking to an original recipe
+
+If a recipe is adapted from somewhere else, add `source_url` to its front matter. The recipe page then shows an "Adapted from" link under the author, and the print view shows the full URL:
+
+```yaml
+source_url: https://www.example.com/original-recipe
+source_name: Example Kitchen # optional, defaults to the site's domain (example.com)
+```
+
+Both fields are optional; recipes without `source_url` are unchanged.
+
 ## Troubleshooting
 
 ### "Unknown output format 'print'" Error
