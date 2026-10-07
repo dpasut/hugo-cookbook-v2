@@ -258,3 +258,11 @@ a:hover {
     position: relative;
     z-index: 2;
 }
+
+/* Bootstrap gives <mark> horizontal padding (0.1875em), which makes a
+   highlighted match inside a word read as a separate word ("bread maker"
+   for "<mark>bread</mark>maker") and looks like a highlighted trailing
+   space after a match. Remove it for search result highlights. */
+#searchResults mark {
+    padding: 0;
+}
