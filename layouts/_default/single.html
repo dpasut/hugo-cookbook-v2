@@ -23,7 +23,9 @@
                 {{- with .Params.source_url }}
                 <p class="small"> Adapted from <a class="source-link" href="{{ . }}" target="_blank"
                         rel="noopener noreferrer">{{ $.Params.source_name | default (strings.TrimPrefix "www." (urls.Parse .).Host) }}</a></p>
-                {{- end }}
+                {{- else }}{{ with .Params.source_name }}
+                <p class="small"> Adapted from {{ . }}</p>
+                {{- end }}{{ end }}
                 <div class="text-end">
                     {{ partial "metadata.html" . }}
                 </div>
