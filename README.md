@@ -77,6 +77,18 @@ hugo server --disableFastRender
 
 Visit `http://localhost:1313` to see your site.
 
+### Images within steps
+You can embed photos directly inside direction steps (or anywhere in the
+recipe body) with standard markdown:
+
+```markdown
+3. Roll the dough into walnut sized balls. ![Rolling the dough](/images/rolling.jpg "Aim for about this size")
+```
+
+The theme renders them as centered, size-capped figures (max height 300px)
+with lazy loading; the optional quoted title becomes a caption. Step images
+are hidden in the print view to keep printed recipes compact.
+
 ### Linking to an original recipe
 
 If a recipe is adapted from somewhere else, add `source_url` to its front matter. The recipe page then shows an "Adapted from" link under the author, and the print view shows the full URL:

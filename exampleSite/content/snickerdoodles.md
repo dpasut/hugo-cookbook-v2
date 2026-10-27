@@ -34,5 +34,5 @@ calories: 300 #in kcal #can be BLANK
 
 1. Preheat oven to 375 degrees F (190 degrees C).
 2. In a medium bowl, cream together the shortening and 1 1/2 cups sugar. Stir in the eggs. Sift together the flour, baking soda, cream of tartar, and salt; stir into the creamed mixture until well blended.
-3. In a small bowl, stir together the 2 tablespoons of sugar, and the cinnamon. Roll dough into walnut sized balls, then roll the balls in the cinnamon-sugar. Place them onto an unprepared cookie sheet, two inches apart.
+3. In a small bowl, stir together the 2 tablespoons of sugar, and the cinnamon. Roll dough into walnut sized balls, then roll the balls in the cinnamon-sugar. Place them onto an unprepared cookie sheet, two inches apart. ![Snickerdoodles rolled and ready to bake](/images/recipe-headers/snickerdoodles.webp "Rolled in cinnamon-sugar, ready for the oven")
 4. Bake for 8 to 10 minutes in the preheated oven. Edges should be slightly brown. Remove from sheets to cool on wire racks.
