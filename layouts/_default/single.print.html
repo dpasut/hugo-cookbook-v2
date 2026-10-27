@@ -13,7 +13,9 @@
                                 <p class="fst-italic mb-2"> {{ .Params.Author | default .Site.Params.front.defaultAuthor }}</p>
                                 {{- with .Params.source_url }}
                                 <p class="small mb-2"> Adapted from {{ $.Params.source_name | default (strings.TrimPrefix "www." (urls.Parse .).Host) }}: {{ . }}</p>
-                                {{- end }}
+                                {{- else }}{{ with .Params.source_name }}
+                                <p class="small mb-2"> Adapted from {{ . }}</p>
+                                {{- end }}{{ end }}
                                 {{ partial "printmetadata.html" . }}
                                 <p class="fst-italic mt-2"> {{ .Params.Tagline }}</p>
                             </div>

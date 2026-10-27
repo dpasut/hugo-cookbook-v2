@@ -89,7 +89,7 @@ The theme renders them as centered, size-capped figures (max height 300px)
 with lazy loading; the optional quoted title becomes a caption. Step images
 are hidden in the print view to keep printed recipes compact.
 
-### Linking to an original recipe
+### Crediting an original recipe
 
 If a recipe is adapted from somewhere else, add `source_url` to its front matter. The recipe page then shows an "Adapted from" link under the author, and the print view shows the full URL:
 
@@ -98,7 +98,13 @@ source_url: https://www.example.com/original-recipe
 source_name: Example Kitchen # optional, defaults to the site's domain (example.com)
 ```
 
-Both fields are optional; recipes without `source_url` are unchanged.
+For a source without a link, such as a cookbook, set only `source_name`. It is shown as plain text ("Adapted from Northern Italian Cooking") on the recipe page and in the print view:
+
+```yaml
+source_name: Northern Italian Cooking
+```
+
+Both fields are optional; recipes with neither are unchanged.
 
 ## Troubleshooting
 
