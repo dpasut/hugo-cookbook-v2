@@ -1,0 +1,12 @@
+{{- /* Styles images embedded in recipe content (e.g. inside direction
+       steps) so they render as centered, size-constrained figures
+       instead of raw full-size inline images. An optional markdown
+       title renders as a caption:
+       ![alt](/images/step.jpg "Caption text") */ -}}
+<figure class="figure d-block text-center step-image-figure my-3">
+    <img class="figure-img img-fluid rounded step-image" src="{{ .Destination | safeURL }}"
+        alt="{{ .Text }}" loading="lazy">
+    {{- with .Title }}
+    <figcaption class="figure-caption">{{ . }}</figcaption>
+    {{- end }}
+</figure>

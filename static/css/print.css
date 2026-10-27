@@ -67,3 +67,9 @@ img.figure-img {
     max-height: 200px;
     width: auto;
 }
+
+/* Keep the print view compact: hide images embedded in direction
+   steps (the header image and text carry the recipe when printed) */
+.step-image-figure {
+    display: none;
+}

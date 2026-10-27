@@ -258,3 +258,11 @@ a:hover {
     position: relative;
     z-index: 2;
 }
+
+/* Images embedded in recipe content (e.g. inside direction steps),
+   wrapped by the image render hook */
+.step-image {
+    max-height: 300px;
+    max-width: 100%;
+    object-fit: contain;
+}
