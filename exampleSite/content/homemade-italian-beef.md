@@ -7,6 +7,7 @@ image_width: 512
 image_height: 512
 date: 2021-01-24T22:16:36-05:00
 tags: ["crockpot", "dinner"] #tags for your recipe
+related: ["german-potato-salad", "deviled-eggs"] # demo: shown as Related Recipes cards
 tagline: "A short tagline for your recipe"
 servings: 6
 prep_time: 10 #in minutes #can be BLANK
@@ -33,3 +34,5 @@ calories: 300 #in kcal #can be BLANK
 2. Cover, and cook on High for 6 to 7 hours.
 3. During the last hour, shred the meat with two forks - if it does not shred easily, cook longer.
    1. Add the peppers, and as much of the juice as you like for additional flavor. Serve on buns.
+
+Pairs well with {{< recipe "german-potato-salad" "our German potato salad" >}}.

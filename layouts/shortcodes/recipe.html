@@ -1,0 +1,11 @@
+{{- /* Inline link to another recipe on the site.
+       {{< recipe "german-potato-salad" >}}            -> linked recipe title
+       {{< recipe "german-potato-salad" "the salad" >}} -> linked custom text */ -}}
+{{- $ref := .Get 0 -}}
+{{- $page := partial "recipe-ref.html" $ref -}}
+{{- if $page -}}
+<a class="recipe-ref" href="{{ $page.RelPermalink }}">{{ .Get 1 | default $page.Title }}</a>
+{{- else -}}
+{{- warnf "recipe shortcode: no recipe found for %q (used in %s)" $ref .Page.File.Path -}}
+{{- .Get 1 | default $ref -}}
+{{- end -}}

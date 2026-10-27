@@ -16,6 +16,9 @@
                                 {{- else }}{{ with .Params.source_name }}
                                 <p class="small mb-2"> Adapted from {{ . }}</p>
                                 {{- end }}{{ end }}
+                                {{- with .Params.inspired_by }}{{ with partial "recipe-ref.html" . }}
+                                <p class="small mb-2"> Inspired by {{ .Title }}: {{ with .OutputFormats.Get "HTML" }}{{ .Permalink }}{{ end }}</p>
+                                {{- end }}{{ end }}
                                 {{ partial "printmetadata.html" . }}
                                 <p class="fst-italic mt-2"> {{ .Params.Tagline }}</p>
                             </div>
