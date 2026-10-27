@@ -1,0 +1,5 @@
+{{- /* Resolves a recipe reference string to a page, or nil if not found.
+       Accepts "german-potato-salad", "/german-potato-salad", or
+       "german-potato-salad.md" so references are forgiving to write. */ -}}
+{{- $ref := strings.TrimPrefix "/" (strings.TrimSuffix ".md" (strings.TrimSpace .)) -}}
+{{- return site.GetPage (printf "/%s" $ref) -}}

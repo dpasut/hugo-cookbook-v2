@@ -7,6 +7,7 @@ image_width: 512
 image_height: 512
 date: 2021-01-24T19:34:12-05:00
 tags: ["main", "quick", "chicken"] #tags for your recipe
+inspired_by: prucetta-wraps # demo: shown as "Inspired by" under the author
 tagline: "Serve these tasty handheld sandwiches with salsa on the side for dipping."
 servings: 8
 prep_time: 20 #in minutes #can be BLANK

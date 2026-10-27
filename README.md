@@ -106,6 +106,39 @@ source_name: Northern Italian Cooking
 
 Both fields are optional; recipes with neither are unchanged.
 
+### Referencing other recipes on the site
+
+Recipes can link to each other in three ways. References use the recipe's
+file name without the extension (e.g. `german-potato-salad` for
+`content/german-potato-salad.md`); a reference that doesn't resolve logs a
+build warning and degrades gracefully.
+
+**Inline, within text** — link another recipe from ingredients or steps
+with the `recipe` shortcode (an optional second argument overrides the
+link text):
+
+```markdown
+4. Serve topped with {{</* recipe "pan-gravy" */>}}.
+5. Pairs well with {{</* recipe "german-potato-salad" "our potato salad" */>}}.
+```
+
+**Related recipes** — list companion recipes in front matter and they are
+shown as cards in a "Related Recipes" section at the bottom of the recipe
+page (not in the print view):
+
+```yaml
+related: ["pan-gravy", "stuffing"]
+```
+
+**Inspired by** — credit another recipe on the site as the inspiration.
+It appears under the author like "Adapted from", in the print view, and
+as `isBasedOn` in the recipe's structured data (when no external
+`source_url`/`source_name` is set):
+
+```yaml
+inspired_by: classic-roast-turkey
+```
+
 ## Troubleshooting
 
 ### "Unknown output format 'print'" Error

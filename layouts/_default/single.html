@@ -26,6 +26,13 @@
                 {{- else }}{{ with .Params.source_name }}
                 <p class="small"> Adapted from {{ . }}</p>
                 {{- end }}{{ end }}
+                {{- with .Params.inspired_by }}
+                {{- with partial "recipe-ref.html" . }}
+                <p class="small"> Inspired by <a class="source-link" href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+                {{- else }}
+                {{- warnf "inspired_by: no recipe found for %q (in %s)" . $.File.Path }}
+                {{- end }}
+                {{- end }}
                 <div class="text-end">
                     {{ partial "metadata.html" . }}
                 </div>
@@ -39,6 +46,25 @@
             <div class="content">
                 {{ .Content }}
             </div>
+            {{- $related := slice }}
+            {{- range .Params.related }}
+            {{- with partial "recipe-ref.html" . }}
+            {{- $related = $related | append . }}
+            {{- else }}
+            {{- warnf "related: no recipe found for %q (in %s)" . $.File.Path }}
+            {{- end }}
+            {{- end }}
+            {{- with $related }}
+            <hr>
+            <p class="h4">Related Recipes</p>
+            <div class="row mt-3">
+                {{- range . }}
+                <div class="col-12 col-sm-6 mb-4 d-flex">
+                    {{ partial "summary.html" . }}
+                </div>
+                {{- end }}
+            </div>
+            {{- end }}
         </div>
     </div>
 </div>

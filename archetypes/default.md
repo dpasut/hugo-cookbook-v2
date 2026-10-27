@@ -19,6 +19,8 @@ cook_temperature_degrees: 180 #can be BLANK
 calories: 300 #in kcal #can be BLANK
 source_url: # link to the original recipe, if adapted from somewhere #can be BLANK
 source_name: # name of the source (e.g. a cookbook); link text if source_url is set, else shown as plain text #can be BLANK
+inspired_by: # another recipe on this site this one is inspired by, e.g. german-potato-salad #can be BLANK
+related: [] # other recipes on this site to show as "Related Recipes", e.g. ["gravy", "stuffing"]
 
 
 # For ingredient subheadings (if you use them), please use the h4 header.  For print view I have those elements targeted
